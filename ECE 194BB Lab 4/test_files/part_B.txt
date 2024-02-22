@@ -1,0 +1,25 @@
+Command 1: First check what we have in slave_reg2;
+
+create_hw_axi_txn -force read_txn [get_hw_axis hw_axi_1] -type read -address 44A0_0008 -len 1
+run_hw_axi [get_hw_axi_txns read_txn]
+
+Command 2: Write slave_reg1, which is connected to data_tx;
+
+create_hw_axi_txn -force write_txn [get_hw_axis hw_axi_1] -type write -address 44A0_0004 -len 1 -data {12345678}
+run_hw_axi [get_hw_axi_txns write_txn]
+
+Command 3: Write slave_reg0 with {00000001}, which sets the master's shift register. Nowa new transition is possible;
+
+create_hw_axi_txn -force write_txn [get_hw_axis hw_axi_1] -type write -address 44A0_0000 -len 1 -data {00000001}
+run_hw_axi [get_hw_axi_txns write_txn]
+
+Command 4: Write slave_reg0 with {00000002}, which enables the transition;
+
+create_hw_axi_txn -force write_txn [get_hw_axis hw_axi_1] -type write -address 44A0_0000 -len 1 -data {00000002}
+run_hw_axi [get_hw_axi_txns write_txn]
+
+
+Command 5: Read slave_reg2, which are refreshed every clock with data_rd;
+
+create_hw_axi_txn -force read_txn [get_hw_axis hw_axi_1] -type read -address 44A0_0008 -len 1
+run_hw_axi [get_hw_axi_txns read_txn

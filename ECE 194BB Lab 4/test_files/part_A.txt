@@ -1,0 +1,34 @@
+Command 1:
+
+create_hw_axi_txn -force read_txn [get_hw_axis hw_axi_1] -type read -address 44A0_0000 -len 1
+run_hw_axi [get_hw_axi_txns read_txn]
+
+Command 2:
+
+create_hw_axi_txn -force write_txn [get_hw_axis hw_axi_1] -type write -address 44A0_0000 -len 1 -data {11111111}
+run_hw_axi [get_hw_axi_txns write_txn]
+
+
+Command 3:
+
+run_hw_axi [get_hw_axi_txns read_txn]
+
+Command 4:
+
+create_hw_axi_txn -force write_txn [get_hw_axis hw_axi_1] -type write -address 44A0_0004 -len 1 -data {22222222}
+run_hw_axi [get_hw_axi_txns write_txn]
+
+Command 5:
+
+create_hw_axi_txn -force read_txn1 [get_hw_axis hw_axi_1] -type read -address 44A0_0004 -len 1
+run_hw_axi [get_hw_axi_txns read_txn1]
+
+Command 6: 
+
+create_hw_axi_txn -force write_txn [get_hw_axis hw_axi_1] -type write -address 44A0_0003 -len 1 -data {33333333}
+run_hw_axi [get_hw_axi_txns write_txn]
+
+Command 7:
+
+run_hw_axi [get_hw_axi_txns read_txn]
+run_hw_axi [get_hw_axi_txns read_txn1]
